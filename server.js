@@ -10,11 +10,11 @@ app.use(express.json())
 app.use('/api', api)
 
 app.get('/notes', (req,res) => {
-  res.sendFile(path.join(__dirname, "public/notes.html"))
+  res.sendFile(path.join(__dirname, "public/notes.html"))  // HTML ROUTE
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'))
+  res.sendFile(path.join(__dirname, 'public/index.html')) // HTML ROUTE
 });
 
 app.listen(PORT, () =>

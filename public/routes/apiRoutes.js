@@ -37,40 +37,43 @@ apiRoutes.get('/', (req, res) => {
             return;
           }
           console.log(`Note for ${newNote.title} has been written to JSON file`);
-        const response = {
-        status: 'success',
-        body: newNote,
-        };
-      console.log(response);
-      res.status(201).json(response);
-    })
-  })
+          const response = {
+          status: 'success',
+          body: newNote,
+          };
+          console.log(response);
+          res.status(201).json(response);
+          })
+      })
     } else {
       res.status(500).json('Error in posting note');
     }
   })
 // delete()  /api/notes/:id
-// api.delete('/notes/:id', (req, res) => {
-//     const noteId = req.params.id
-//     res.json({ message:(`Note deleted`)})
+apiRoutes.delete('/notes/:id', (req, res) => {
+  console.info(`${req.method} request received to delete note`)
 
-//     fs.readFile(dbPath, 'utf8', (err, data) => {
-//         if (err) {
-//             console.error(err);
-//             res.status(500).json({ error: 'Internal server error' });
-//             return;
-//         }
-//         let notes = JSON.parse(data);
-//         notes = notes.filter(note => note.id !== noteId);
-//         fs.writeFile(dbPath, JSON.stringify(notes), err => {
-//             if (err) {
-//                 console.error(err);
-//                 res.status(500).json({ error: 'Internal server error' });
-//                 return;
-//             }
-//             res.json({ message: 'Note deleted successfully' });
-//         });
-//     });
-// })
+    const noteId = req.params.id
+
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+      if (err){
+        console.error(err);
+        res.status(500).json({error: 'Internal server error'});
+        return;
+      }
+      
+      let notes = JSON.parse(data);
+      notes = notes.filter(note => note.noteId !== noteId);
+
+      fs.writeFile('./db/db.json', JSON.stringify(notes, null, 2), err => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Internal server error' });
+          return;
+        }
+        res.json({ message: 'Note deleted successfully' });
+      });
+    });
+})
 
 module.exports = apiRoutes
