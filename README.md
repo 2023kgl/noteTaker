@@ -10,6 +10,8 @@ My challenge with this project was getting the back end data to work with the fr
 
 Simply click on the deployed link below and start using!
 
+https://notetaker-73f3.onrender.com/
+
 ## USAGE
 
 ![noteTakerExpress](./public/assets/images/noteTakerExpress.png)
